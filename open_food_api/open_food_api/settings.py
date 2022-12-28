@@ -47,9 +47,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mongo_auth',
-    'users',
     'django.contrib.auth.password_validation',
-    'corsheaders'
+    'requests',
+    'corsheaders',
+    'users',
+    'categories',
 ]
 
 MIDDLEWARE = [
