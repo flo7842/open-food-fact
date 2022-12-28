@@ -1,10 +1,7 @@
-from django.shortcuts import render
+from rest_framework.response import Response
 from rest_framework import status, viewsets
-from .serializers import CategorySerializer
 from .models import Category
 import requests
-import json
-from rest_framework.response import Response
 import pymongo
 
 # Create your views here.
@@ -33,8 +30,25 @@ class CategoryViewSet(viewsets.ViewSet):
                 # Insertion des catégories dans la base de données.
                 collection.insert_many(data['tags'])
 
-            return Response({'msg': 'Les catégories ont correctement été ajoutées dans la base de données.'})
+            return Response({'msg': 'Les catégories ont correctement été ajoutées dans la base de données.'}, status=status.HTTP_200_OK)
         except:
-            return Response({'msg': "Une erreur interne est survenue lors de l'ajout des catégories dans la base de données."})
+            return Response({'msg': "Une erreur interne est survenue lors de l'ajout des catégories dans la base de données."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    def list(self, request):
+        try:
+            categories = Category.objects.all()
+            categList = []
+
+            for category in categories:
+                categ = {
+                    'name': category.name,
+                    'url': category.url,
+                    'products': category.products
+                }
+
+                categList.append(categ)
+
+            return Response(categList, status=status.HTTP_200_OK)
+        except:
+            return Response({'msg': "Une erreur interne est survenue lors de la récupération des catégories."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
