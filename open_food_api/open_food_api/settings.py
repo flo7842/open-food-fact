@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mongo_auth',
     'django.contrib.auth.password_validation',
     'requests',
     'corsheaders',
