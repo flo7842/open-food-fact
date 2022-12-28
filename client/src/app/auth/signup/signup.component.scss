@@ -1,30 +1,40 @@
 .container{
-    width: 100%;
-    height: 100vh;
-    background: url(/assets/image/food_imgs.png) no-repeat center center fixed;
-    background-size: cover;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     display: flex;
+
     .register-form {
-        position: relative;
-        z-index: 1000;
         width: 360px;
         margin: auto;
         text-align: center;
-        background-color: rgb(251 158 137);
         border-radius: 10px;
-        padding: 2rem;
+
         h1 {
-            margin: 10px 0;
-            font-size: 2em;
+            font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+            text-align: left;
+            margin-top: 190px;
+            margin-bottom: 53px;
+            font-size: 2.5em;
             font-weight: bold;
         }
-    
+        h2 {
+            text-align: left;
+            font-size: 1.8em;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+        span{
+            display: block;
+            text-align: left;
+            color: #c2bcbc;
+        }
         .form-group {
             display: flex;
             flex-direction: column;
-            margin: 15px 0;
+            margin-top: 25px;
+            margin-bottom: 18px;
     
             label {
+                text-align: left;
                 font-size: 0.875em;
                 font-weight: bold;
                 margin-bottom: 5px;
@@ -32,20 +42,40 @@
             input {
                 padding: 10px;
                 font-size: 0.875em;
-                border: 1px solid #ccc;
+                border: 1px solid #c2bcbc;
                 border-radius: 4px;
             }
+        }
+        .btn-container{
+            width: 100%;
+            display: flex;
+            align-content: flex-start;
             button {
-                background-color: #3498db;
+                background-color: #4b9934;
+                padding: 10px 20px;
                 border: none;
                 color: white;
-                padding: 10px 20px;
                 font-size: 0.875em;
+                font-weight: bold;
                 cursor: pointer;
             }
             button:hover {
-                background-color: #2980b9;
+                background-color: #4c993462;
             }
         }
+        img{
+            width: 170px;
+            height: 80px;
+            margin-top: 160px;
+        }
+    }
+    .img-signup{
+        opacity: 0.8;
+        width: 70%;
+        height: 100vh;
+        background: url(/assets/image/food_img.jpg) no-repeat center center;
+        background-size: cover;
+        display: flex;
     }
 }
+

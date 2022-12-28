@@ -1,18 +1,20 @@
 <div class="container">
-    <form class="register-form">
-        <h1>Create an Account</h1>
-        <div class="form-group">
-            <label for="name">Nom d'utilisateur</label>
-            <input type="text" id="name" placeholder="Entrez votre nom d'utilisateur">
-        </div>
+    <form class="register-form" [formGroup]="form" (ngSubmit)="signup()">
+        <h1>Open Food Facts</h1>
+        <h2>Bienvenue !</h2>
+        <span>Créez votre compte et commencez à faire votre choix</span>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" placeholder="Entrez votre email">
+            <input type="email" id="email" formControlName="email" placeholder="Entrez votre email">
         </div>
         <div class="form-group">
             <label for="password">Mot de passe</label>
-            <input type="password" id="password" placeholder="Entrez votre mot de passe">
+            <input type="password" id="password" formControlName="password" placeholder="Entrez votre mot de passe">
         </div>
-        <button type="submit">S'enregistrer</button>
+        <div class="btn-container">
+            <button type="submit">S'inscrire</button>
+        </div>
+        <img src="/assets/image/nutri-score.png" alt="">
     </form>
+    <div class="img-signup"></div>
 </div>
