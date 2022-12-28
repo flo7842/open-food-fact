@@ -9,9 +9,10 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
-
+import datetime
+from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,17 +28,28 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ]
+}
 
 # Application definition
+# Minimal settings (all mandatory)
 
 INSTALLED_APPS = [
-    'product_data',
+    'rest_framework',
+    'rest_framework_simplejwt',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mongo_auth',
+    'users',
+    'django.contrib.auth.password_validation',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -48,14 +60,20 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+  'http://localhost:4200',
+)
 
 ROOT_URLCONF = 'open_food_api.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,7 +88,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'open_food_api.wsgi.application'
 
-
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -80,10 +101,22 @@ DATABASES = {
             'NAME': 'open-food-act',
             'ENFORCE_SCHEMA': False,
             'CLIENT': {
-                'host': 'mongodb://open_food_imie:open-food-facts-ms2d@ac-39n1fcv-shard-00-00.nxwyor0.mongodb.net:27017,ac-39n1fcv-shard-00-01.nxwyor0.mongodb.net:27017,ac-39n1fcv-shard-00-02.nxwyor0.mongodb.net:27017/?ssl=true&replicaSet=atlas-al0304-shard-0&authSource=admin&retryWrites=true&w=majority'
+            "host":"mongodb+srv://open_food_imie:open-food-facts-ms2d@openfoodcluster.nxwyor0.mongodb.net/?ssl=true&ssl_cert_reqs=CERT_NONE&retryWrites=true&w=majority",
+            "name":"test",
+            "authMechanism":"SCRAM-SHA-1" #For Atlas Cloud DB
             }
         }
 }
+
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.ScryptPasswordHasher',
+]
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
