@@ -7,7 +7,7 @@ import pymongo
 # Create your views here.
 class CategoryViewSet(viewsets.ViewSet):
 
-    # Récupération des catégories de Open Food Fact en français.
+    # Récupération des catégories depuis Open Food Fact en français.
     def fetchCategories(self, request):
         try:
             # Initialisation de la base de données MongoDB et de la collection "Category".
@@ -27,19 +27,21 @@ class CategoryViewSet(viewsets.ViewSet):
                 if data['count'] == 0:
                     break
 
-                # Insertion des catégories dans la base de données.
+                # Insertion des catégories en masse dans la base de données.
                 collection.insert_many(data['tags'])
 
             return Response({'msg': 'Les catégories ont correctement été ajoutées dans la base de données.'}, status=status.HTTP_200_OK)
         except:
             return Response({'msg': "Une erreur interne est survenue lors de l'ajout des catégories dans la base de données."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    # Récupération des catégories dans la base de données.
     def list(self, request):
         try:
             categories = Category.objects.all()
             categList = []
 
             for category in categories:
+                # Parse les données récupérées au format JSON
                 categ = {
                     'name': category.name,
                     'url': category.url,
