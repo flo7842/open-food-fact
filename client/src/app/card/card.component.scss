@@ -1,12 +1,14 @@
 
 
 .container-card{
-    flex: 0 0 256px;
-    margin: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 6px 0px rgb(0 0 0 / 30%);
     display: flex;
-    border: 1px solid black;
-    border-radius: 10px;
-    height: 300px;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+
     .img-card{
         height: 200px;
         padding: 10px;
@@ -14,6 +16,9 @@
     .details{
         text-align: center;
         margin-top: 25%;
+        h2{
+            line-height: 23px;
+        }
     }
     img{
         width: 125px;

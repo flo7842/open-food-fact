@@ -18,11 +18,11 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    // this.httpClient.get("http://localhost:8000/api/categories").subscribe((data: any) => {
-    //   for(let category of data) {
-    //     this.collectionCategories.push(category);
-    //   }
-    // })
+    this.httpClient.get("http://localhost:8000/api/categories").subscribe((data: any) => {
+      for(let category of data) {
+        this.collectionCategories.push(category);
+      }
+    })
     this.httpClient.get("https://fr.openfoodfacts.org/?sort_by=openFoodProduct_score.json").subscribe((data: any) => {
         for(let product of data.products) {
           this.openFoodProduct.push(product);

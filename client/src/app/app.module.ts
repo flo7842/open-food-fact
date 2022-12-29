@@ -10,16 +10,16 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { AuthService } from './services/auth.service';
 import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CardComponent } from './card/card.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { LoaderService } from './services/loader/loader.service';
 import { LoadingInterceptor } from './loadingInterceptor/loading.interceptor';
-import { ModalProductComponent } from './modal-product/modal-product.component';
 import { ModalSignin } from './modal-signin/modal-signin.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { TextTransformPipe } from './pipe/text-transform.pipe';
+import { SubstitutProductComponent } from './substitut-product/substitut-product.component';
 
 @NgModule({
   declarations: [
@@ -30,9 +30,9 @@ import { TextTransformPipe } from './pipe/text-transform.pipe';
     ModalSignin,
     CardComponent,
     SpinnerComponent,
-    ModalProductComponent,
     ProductDetailsComponent,
-    TextTransformPipe
+    TextTransformPipe,
+    SubstitutProductComponent
   ],
   imports: [
     MatProgressSpinnerModule,
@@ -42,11 +42,14 @@ import { TextTransformPipe } from './pipe/text-transform.pipe';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   providers: [AuthService, LoaderService,  {
     provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
-  },{provide: MAT_DIALOG_DATA, useValue: {}}],
+  },{provide: MAT_DIALOG_DATA, useValue: {}}, {
+    provide: MatDialogRef,
+    useValue: {}
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
