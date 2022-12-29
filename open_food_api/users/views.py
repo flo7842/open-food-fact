@@ -61,7 +61,7 @@ class UserViewSet(viewsets.ViewSet):
             if check == False:
                 raise Exception(badCredentials)
 
-            auth_data = get_tokens_for_user(request.user)
+            auth_data = get_tokens_for_user(user)
             return Response({'msg': 'Authentification réussie !', **auth_data}, status=status.HTTP_200_OK)
         except Exception as error:
             return Response({'msg': f'{error}'}, status=status.HTTP_401_UNAUTHORIZED)
