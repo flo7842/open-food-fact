@@ -49,4 +49,4 @@ def get_collection(collection_name):
 
         return collection
     except:
-        raise Exception("Une erreur interne est survenue.")
+        raise Exception(settings.INTERNAL_ERROR_MESSAGE)

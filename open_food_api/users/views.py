@@ -4,20 +4,19 @@ from rest_framework import status, viewsets
 from .serializers import UserSerializer
 from .utils import get_tokens_for_user, test_password, get_user_id_from_token, get_collection
 from .models import User
-import pymongo
+from django.conf import settings
 
 # Create your views here.
 
 class UserViewSet(viewsets.ViewSet):
     def register(self, request):
-            wrongData = "Les informations saisies sont incorrectes."
-
             try:
-                if 'email' not in request.data or 'password' not in request.data:
-                    raise Exception(wrongData)
+                wrongData = "Les informations saisies sont incorrectes."
+                email = request.data.get('email')
+                password = request.data.get("password")
 
-                email = request.data['email']
-                password = request.data["password"]
+                if email is None or password is None:
+                    raise Exception(wrongData)
 
                 # Looking for an existing account with the given email address before serialization to prevent exception since the email should be unique in the DB.
                 if User.objects.filter(email=email):
@@ -38,34 +37,30 @@ class UserViewSet(viewsets.ViewSet):
                     return Response({'msg': "L'utilisateur a correctement été créé."}, status=status.HTTP_200_OK)
 
                 return Response({'msg': wrongData}, status=status.HTTP_400_BAD_REQUEST)
+
             except Exception as error:
                 return Response({'msg': f'{error}'}, status=status.HTTP_400_BAD_REQUEST)
 
     def login(self, request):
         try:
-            badCredentials = 'Identifiant ou mot de passe incorrect.'
-
-            if 'email' not in request.data or 'password' not in request.data:
-                raise Exception(badCredentials)
-
             email = request.data['email']
             password = request.data['password']
 
             try:
                 user = User.objects.get(email=email)
             except:
-                raise Exception(badCredentials)
+                raise
 
             check = check_password(password, user.password)
         
             if check == False:
-                raise Exception(badCredentials)
+                raise
 
             auth_data = get_tokens_for_user(user)
 
             return Response({'msg': 'Authentification réussie !', **auth_data}, status=status.HTTP_200_OK)
-        except Exception as error:
-            return Response({'msg': f'{error}'}, status=status.HTTP_401_UNAUTHORIZED)
+        except:
+            return Response({'msg': 'Identifiant ou mot de passe incorrect.'}, status=status.HTTP_401_UNAUTHORIZED)
 
     def saveProduct(self, request):
         try:
@@ -106,8 +101,8 @@ class UserViewSet(viewsets.ViewSet):
 
             return Response({'msg': 'Le produit a été enregistré dans la liste des préférences.'}, status=status.HTTP_200_OK)
 
-        except Exception as error:
-            return Response({'msg': f'{error}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except:
+            return Response({'msg': settings.INTERNAL_ERROR_MESSAGE}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def fetchProducts(self, request):
         try:
@@ -129,13 +124,13 @@ class UserViewSet(viewsets.ViewSet):
             # Récupération de la liste des produits enregistrés.
             user_products = user.get('products')
 
-            if user_products is None:
+            if user_products is None or len(user_products) == 0:
                 return Response({'msg': 'Aucun produit enregistré.'}, status=status.HTTP_404_NOT_FOUND)
             else:
                 return Response(user_products, status=status.HTTP_200_OK)
 
-        except Exception as error:
-            return Response({'msg': f'{error}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except:
+            return Response({'msg': settings.INTERNAL_ERROR_MESSAGE}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def removeProduct(self, request):
         try:
@@ -171,5 +166,5 @@ class UserViewSet(viewsets.ViewSet):
 
             return Response({'msg': 'Le produit a été supprimé de la liste des préférences.'}, status=status.HTTP_200_OK)
 
-        except Exception as error:
-            return Response({'msg': f'{error}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except:
+            return Response({'msg': settings.INTERNAL_ERROR_MESSAGE}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
