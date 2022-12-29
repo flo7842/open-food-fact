@@ -7,10 +7,10 @@ export class TextTransformPipe implements PipeTransform {
 
   transform(value: string): string {
     let replaceText = ''
-    if(value !== ''){
+    
+    if(value !== '' && value !== undefined && value !== null){
       if(value.includes('en:')){
         replaceText = value.replace(/en:/g, "");
-        console.log(replaceText, "replacetext");
       } else {
         replaceText = value
       }

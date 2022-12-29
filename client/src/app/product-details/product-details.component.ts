@@ -31,6 +31,8 @@ export class ProductDetailsComponent implements OnInit {
     this.httpClient.get("https://fr.openfoodfacts.org/categorie/"+result+"?sort_by=nutriscore_score&json=true").subscribe((data: any) => {
       this.substituteCat.push(new SubstitutProductComponent());
       for(let product of data.products){
+        console.log(product.packaging, "packaging");
+        
         this.substituteProduct.push(product)
       }
     })
