@@ -1,0 +1,29 @@
+<div class="details-modal-title" *ngFor="let product of openFoodProductDetails;"> 
+    <div>
+        <img src="{{product.image_front_url}}">
+    </div>
+    <div class="details-product">
+        <h1>{{product.brands}}</h1>
+        <div>
+            <div class="details-labels">
+                <span class="label">Code-barres:</span><p> {{product.code}}</p>
+            </div>
+            <div class="details-labels">
+                <span class="label">Conditionnement :</span><p [innerHTML]="product.packaging_old | textTransform"> {{product.packaging_old}}</p>
+            </div>
+            <div class="details-labels">
+                <span class="label">Marques :</span><p [innerHTML]="product.brands | textTransform"> {{product.brands}}</p>
+            </div>
+            <div class="details-labels">
+                <span class="label">Catégories :</span><p [innerHTML]="product.categories | textTransform"> {{product.categories}}</p>
+            </div>
+            <div class="details-labels">
+                <span class="label">Magasins :</span><p [innerHTML]="product.stores | textTransform"> {{product.stores}}</p>
+            </div>
+            <div class="details-labels">
+                <span class="label">Pays de vente :</span><p [innerHTML]="product.countries | textTransform"> {{product.countries}}</p>
+            </div>
+        </div>
+        <button (click)="addToFavorite()">Ajouter aux favoris</button>
+    </div>
+</div>
