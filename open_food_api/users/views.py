@@ -2,9 +2,9 @@ from django.contrib.auth.hashers import check_password, make_password
 from rest_framework.response import Response
 from rest_framework import status, viewsets
 from .serializers import UserSerializer
-from .utils import get_tokens_for_user
+from .utils import get_tokens_for_user, test_password, get_user_id_from_token, get_collection
 from .models import User
-import re
+import pymongo
 
 # Create your views here.
 
@@ -62,16 +62,48 @@ class UserViewSet(viewsets.ViewSet):
                 raise Exception(badCredentials)
 
             auth_data = get_tokens_for_user(user)
+
             return Response({'msg': 'Authentification réussie !', **auth_data}, status=status.HTTP_200_OK)
         except Exception as error:
             return Response({'msg': f'{error}'}, status=status.HTTP_401_UNAUTHORIZED)
 
-def test_password(password):
-    regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,}$"
-    pattern = re.compile(regex)
-    match = re.match(pattern, password)
+    def saveProduct(self, request):
+        try:
+            # Authentification de l'utilisateur.
+            user_id = get_user_id_from_token(request)
 
-    if match:
-        return True
-    else:
-        return False
+            if user_id is None:
+                return Response({'msg': 'La session a expirée.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+            # Récupération du produit.
+            product = request.data.get('product')
+
+            if product is None:
+                return Response({'msg': 'Le champs product est requis.'}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Récupération de la collection "user".
+            collection = get_collection("users_user")
+
+            # Récupération des informations de l'utilisateur.
+            user = collection.find_one({"id": user_id})
+
+            if user is None:
+                return Response({'msg': 'Utilisateur inconnu.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+            # Récupération de la liste des produits enregistrés.
+            user_products = user.get('products')
+
+            if user_products is None:
+                # Création de la liste des produits si l'utilisateur enregistre un produit pour la première fois.
+                collection.update_one({"id": user_id}, {'$set': {'products': [product]}})
+            else:
+                # Si l'utilisateur a déjà des produits enregistrés, on vérifie d'abord que le produit ne soit pas déjà enregistré afin d'éviter les doublons.
+                if product in user_products:
+                    return Response({'msg': 'Le produit figure déjà dans la liste des préférences.'}, status=status.HTTP_400_BAD_REQUEST)
+
+                # Ajout du produit à la liste des produits enregistrés.
+                collection.update_one({"id": user_id}, {'$push': {'products': product}})
+
+            return Response({'msg': 'Le produit a été enregistré dans la liste des préférences.'}, status=status.HTTP_200_OK)
+        except Exception as error:
+            return Response({'msg': f'{error}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
