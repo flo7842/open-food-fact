@@ -1,6 +1,7 @@
+<app-spinner></app-spinner>
 <header>
     <div class="logo">
-        <span>Open Food Facts</span>
+        <span>Pur Beurre</span>
     </div>
     <div class="menu">
         <ul>
@@ -11,9 +12,19 @@
 </header>
 <main>
     <div>
-        <select name="" id="" style="position:relative; left: 100px">
-            <option *ngFor="let i of collectionCategories;" value="{{i}}">{{ i }}</option>
+        <select name="" id="" (change)="selectChangeCategories($event)">
+            <option *ngFor="let i of collectionCategories;" value="{{i.url}}">{{ i.name }}</option>
+        </select>
+        <select (change)="selectChangeHandlerScore($event)" style="position:relative; left: 100px">
+            <option value="nutriscore">Notes nutritionnelles</option>
+            <option value="ecoScore">Eco-Score</option>
         </select>
     </div>
+    <section>
+        <app-card
+            [openFoodProduct]="openFoodProduct"
+        ></app-card>
+    </section>
 </main>
-<app-modal-parent></app-modal-parent>
+
+<app-modal-signin></app-modal-signin>

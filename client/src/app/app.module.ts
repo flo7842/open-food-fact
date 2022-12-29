@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -10,8 +10,16 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { AuthService } from './services/auth.service';
 import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material/dialog';
-import { ModalParentComponent } from './modal-parent/modal-parent.component';
+import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CardComponent } from './card/card.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { LoaderService } from './services/loader/loader.service';
+import { LoadingInterceptor } from './loadingInterceptor/loading.interceptor';
+import { ModalProductComponent } from './modal-product/modal-product.component';
+import { ModalSignin } from './modal-signin/modal-signin.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { TextTransformPipe } from './pipe/text-transform.pipe';
 
 @NgModule({
   declarations: [
@@ -19,9 +27,15 @@ import { ModalParentComponent } from './modal-parent/modal-parent.component';
     SigninComponent,
     SignupComponent,
     HomeComponent,
-    ModalParentComponent
+    ModalSignin,
+    CardComponent,
+    SpinnerComponent,
+    ModalProductComponent,
+    ProductDetailsComponent,
+    TextTransformPipe
   ],
   imports: [
+    MatProgressSpinnerModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -30,7 +44,9 @@ import { ModalParentComponent } from './modal-parent/modal-parent.component';
     BrowserAnimationsModule,
     MatDialogModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, LoaderService,  {
+    provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
+  },{provide: MAT_DIALOG_DATA, useValue: {}}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

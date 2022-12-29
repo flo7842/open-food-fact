@@ -21,3 +21,19 @@ header{
         }
     }
 }
+
+select{
+    width: 200px;
+}
+
+section app-card{
+    width: 90%;
+    margin: auto;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: flex-start;
+    align-content: flex-start;
+    
+}
