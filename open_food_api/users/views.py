@@ -107,3 +107,31 @@ class UserViewSet(viewsets.ViewSet):
             return Response({'msg': 'Le produit a été enregistré dans la liste des préférences.'}, status=status.HTTP_200_OK)
         except Exception as error:
             return Response({'msg': f'{error}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def fetchProducts(self, request):
+        try:
+            # Authentification de l'utilisateur.
+            user_id = get_user_id_from_token(request)
+
+            if user_id is None:
+                return Response({'msg': 'La session a expirée.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+            # Récupération de la collection "user".
+            collection = get_collection("users_user")
+
+            # Récupération des informations de l'utilisateur.
+            user = collection.find_one({"id": user_id})
+
+            if user is None:
+                return Response({'msg': 'Utilisateur inconnu.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+            # Récupération de la liste des produits enregistrés.
+            user_products = user.get('products')
+
+            if user_products is None:
+                return Response({'msg': 'Aucun produit enregistré.'}, status=status.HTTP_404_NOT_FOUND)
+            else:
+                return Response(user_products, status=status.HTTP_200_OK)
+                
+        except Exception as error:
+            return Response({'msg': f'{error}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
