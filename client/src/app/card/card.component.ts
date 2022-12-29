@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ProductDetailsComponent } from '../product-details/product-details.component';
+
+
+
 
 @Component({
   selector: 'app-card',
@@ -8,21 +11,22 @@ import { ProductDetailsComponent } from '../product-details/product-details.comp
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-
+  scrollStrategy: any;
   @Input() openFoodProduct: any = [];
-  constructor(private matDialog: MatDialog) { }
+  constructor(private matDialog: MatDialog, public matDialogRef: MatDialogRef<CardComponent>) { 
+    
+  }
 
   ngOnInit(): void {
     
   }
 
-  openProductHandler(url: string){
+  openProductHandler(data: string){
     
     this.matDialog.open(ProductDetailsComponent, {
-      disableClose: true,
-      data: url,
+      disableClose: false,
+      data: data,
       width: '90%',
-      height: "auto",
       panelClass: 'modal-product-container',
     });
   }

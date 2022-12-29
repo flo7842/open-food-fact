@@ -3,7 +3,7 @@
         <img src="{{nutri.image_small_url}}" alt="">
     </div>
     <div class="details">
-        <h2>{{nutri.brands}}</h2>
+        <h2>{{nutri.brands_imported ? nutri.brands_imported : nutri.brands}}</h2>
         <p>{{nutri.generic_name_fr}}</p>
         <div class="score">
             <img src="/assets/image/svg/nutriscore/nutriscore-{{nutri.nutriscore_grade}}.svg" alt="">

@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { SigninComponent } from '../auth/signin/signin.component';
 
 @Component({
@@ -18,7 +18,7 @@ export class ModalSignin implements OnInit {
         width: '90%',
         height: "auto",
         panelClass: 'my-custom-dialog-class',
-        backdropClass: 'backdropBackground' // This is the "wanted" line
+        backdropClass: 'backdropBackground'
       });
     }
   }

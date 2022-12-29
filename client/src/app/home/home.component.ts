@@ -18,11 +18,23 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    // this.httpClient.get("http://localhost:8000/api/categories").subscribe((data: any) => {
-    //   for(let category of data) {
-    //     this.collectionCategories.push(category);
-    //   }
-    // })
+    let categoriesStorage = localStorage.getItem('categories')
+
+    if(categoriesStorage !== null){
+      let parsedCategories = JSON.parse(categoriesStorage)
+      for(let category of parsedCategories) {
+        this.collectionCategories.push(category);
+      }
+    } else {
+      this.httpClient.get("http://localhost:8000/api/categories").subscribe((data: any) => {
+        for(let category of data) {
+          this.collectionCategories.push(category);
+        }
+        localStorage.setItem('categories', JSON.stringify(this.collectionCategories))
+      })
+    }
+      
+      //}
     this.httpClient.get("https://fr.openfoodfacts.org/?sort_by=openFoodProduct_score.json").subscribe((data: any) => {
         for(let product of data.products) {
           this.openFoodProduct.push(product);

@@ -6,15 +6,17 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class TextTransformPipe implements PipeTransform {
 
   transform(value: string): string {
-    console.log(value);
     let replaceText = ''
-    if(value.includes('en:')){
-      console.log(replaceText, "en");
-      replaceText = value.replace("en:", "");
-      
+    
+    if(value !== '' && value !== undefined && value !== null){
+      if(value.includes('en:')){
+        replaceText = value.replace(/en:/g, "");
+      } else {
+        replaceText = value
+      }
+      replaceText = replaceText.replace(/\,/g, ", ");
     }
-    //replaceText = replaceText.replace(",", ", ");
-    return `${ replaceText }`;
+    return `${ replaceText }</b>`;
   }
 
 }
