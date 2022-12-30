@@ -17,8 +17,10 @@ export class FavoritProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.productService.getFavoriteProducts().then((data:any) => {
+      
       for(let productCode of data){
         this.callApiService.getProductByBarCode(productCode).then((data:any) => {
+          console.log(data, "product data");
           this.collectionFavoriteProducts.push(data.product)
         })
       }
@@ -35,8 +37,21 @@ export class FavoritProductComponent implements OnInit {
   }
 
   removeFavoriteProduct(product:any){
+    const objWithIdIndex = this.collectionFavoriteProducts.findIndex((obj:any) => obj._id === product._id);
+    console.log(objWithIdIndex, "indexxx");
+    
     this.productService.deleteFavoriteProducts(product).then((data:any) => {
-      this.collectionFavoriteProducts.push(data.product)
+      this.collectionFavoriteProducts.slice(objWithIdIndex, 1)
+      // this.productService.getFavoriteProducts().then((data:any) => {
+      
+      //   for(let productCode of data){
+      //     this.callApiService.getProductByBarCode(productCode).then((data:any) => {
+      //       console.log(data, "product data");
+      //       this.collectionFavoriteProducts.push(data.product)
+      //     })
+      //   }
+      // })
+     
     })
   }
 }

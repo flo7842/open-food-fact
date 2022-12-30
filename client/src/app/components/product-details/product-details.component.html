@@ -24,7 +24,7 @@
                 <div class="details-labels">
                     <span class="label">Pays de vente :</span><p [innerHTML]="product.countries | textTransform"> {{product.countries}}</p>
                 </div>
-                <p class="more-informations"><a href="{{product.url}}" target="_blank">Plus d'informations sur le produit</a></p>
+                <p class="more-informations"><a href="{{product.url == undefined ? 'https://fr.openfoodfacts.org/products/' + product._id : product.url}}" target="_blank">Plus d'informations sur le produit</a></p>
             </div>
             <button (click)="addToFavorite(product)">Ajouter aux favoris</button>
             <div class="substitution">
