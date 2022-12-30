@@ -1,23 +1,31 @@
 <div class="container">
     <form class="register-form" [formGroup]="form" (ngSubmit)="signup()">
-        <h1>Pur Beurre</h1>
-        <h2>Bienvenue !</h2>
-        <span>Créez votre compte et commencez à faire votre choix</span>
-        <div class="errorMsg" *ngIf="errorMsg.length >=1 ? errorMsg : ''">
-            <span>{{errorMsg}}</span>
+        <div>
+            <h1>Bienvenue sur le site officiel Pur Beurre</h1>
+
+            <p>Créez votre compte et commencez à faire votre choix !</p>
+
+            <div class="form-control">
+                <input type="email" id="email" formControlName="email" placeholder="Adresse mail">
+                <input type="password" id="password" formControlName="password" placeholder="Mot de passe">
+                <span class="password-tip">Le mot de passe doit contenir au moins : 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère spécial, 8 caractères</span>
+            </div>
+
+            <div class="errorMsg" *ngIf="errorMsg.length >=1 ? errorMsg : ''">
+                <span>{{errorMsg}}</span>
+            </div>
+
+            <div class="btn-container">
+                <button type="submit">S'inscrire</button>
+            </div>
+
+            <div class="nutri-score">
+                <img src="/assets/image/nutri-score.png" alt="Image nutri-score">
+            </div>
         </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" formControlName="email" placeholder="Entrez votre email">
-        </div>
-        <div class="form-group">
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" formControlName="password" placeholder="minuscule, majuscule, chiffre, 8 caractères minimum">
-        </div>
-        <div class="btn-container">
-            <button type="submit">S'inscrire</button>
-        </div>
-        <img src="/assets/image/nutri-score.png" alt="">
     </form>
-    <div class="img-signup"></div>
+
+    <div class="img-signup">
+        <img src="/assets/image/food_img.jpg" />
+    </div>
 </div>
