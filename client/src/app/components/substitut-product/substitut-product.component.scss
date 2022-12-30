@@ -10,7 +10,7 @@
     article {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: end;
         align-items: center;
         padding: 30px;
         border: 1px solid #ccc;
@@ -26,6 +26,9 @@
             font-size: 0.8rem;
             h3 {
                 color: black;
+                margin-top: 1rem;
+                line-height: 1rem;
+                text-align: center;
             }
             button{
                 background-color: #4b9934;
@@ -43,6 +46,12 @@
             }
             button:hover {
                 background-color: #4c993462;
+            }
+        }
+        .score{
+            margin-top: 2rem;
+            img{
+                width: 50%;
             }
         }
     }

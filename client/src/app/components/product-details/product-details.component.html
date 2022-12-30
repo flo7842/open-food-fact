@@ -27,23 +27,26 @@
                 <p class="more-informations"><a href="{{product.url}}" target="_blank">Plus d'informations sur le produit</a></p>
             </div>
             <button (click)="addToFavorite(product)">Ajouter aux favoris</button>
-            <p class="show-substitution" (click)="getSubstituteProduct(product.categories)">Produit de substitution {{noteLabel}}</p>
-            <select (change)="selectChangeHandlerScoreNutri($event)" style="position:relative; left: 100px">
-                <option value="">Choisir un score nutritionnelle</option>
-                <option value="note-nutritionnelle/a">Note A</option>
-                <option value="note-nutritionnelle/b">Note B</option>
-                <option value="note-nutritionnelle/c">Note C</option>
-                <option value="note-nutritionnelle/d">Note D</option>
-                <option value="note-nutritionnelle/e">Note E</option>
-            </select>
-            <select (change)="selectChangeHandlerScoreEco($event)" style="position:relative; left: 100px">
-                <option value="">Choisir un score eco</option>
-                <option value="eco-score/a">Note A</option>
-                <option value="eco-score/b">Note B</option>
-                <option value="eco-score/c">Note C</option>
-                <option value="eco-score/d">Note D</option>
-                <option value="eco-score/e">Note E</option>
-            </select>
+            <div class="substitution">
+                <select (change)="selectChangeHandlerScoreNutri($event)" style="position:relative; left: 100px">
+                    <option value="">Choisir un score nutritionnel</option>
+                    <option value="note-nutritionnelle/a">Note A</option>
+                    <option value="note-nutritionnelle/b">Note B</option>
+                    <option value="note-nutritionnelle/c">Note C</option>
+                    <option value="note-nutritionnelle/d">Note D</option>
+                    <option value="note-nutritionnelle/e">Note E</option>
+                </select>
+                <select (change)="selectChangeHandlerScoreEco($event)" style="position:relative; left: 100px">
+                    <option value="">Choisir un score eco</option>
+                    <option value="eco-score/a">Note A</option>
+                    <option value="eco-score/b">Note B</option>
+                    <option value="eco-score/c">Note C</option>
+                    <option value="eco-score/d">Note D</option>
+                    <option value="eco-score/e">Note E</option>
+                </select>
+                <span> {{noteLabelNutri}}</span><span> {{noteLabelEco}}</span>
+                <button class="show-substitution" (click)="getSubstituteProduct(product.categories)">Voir les produits de substitution</button>
+            </div>
         </div>
     </div>
     <div *ngIf="substituteProduct.length;"><app-substitut-product [substituteProduct]="substituteProduct" (substituteProductList)=onProductSubstituteAdded($event)></app-substitut-product></div>

@@ -50,14 +50,31 @@
                 text-decoration: underline;
             }
         }
-        .show-substitution{
-            padding: 0.7rem;
-    margin-top: 2rem;
-    border-radius: 6px;
-    color: white;
-    width: 46%;
-    /* display: inline-block; */
-    background: #ef7d00;
+        .substitution{
+            display: flex;
+            flex-direction: column;
+            margin-top: 1rem;
+            select{
+                left: 0!important;
+                margin-top: 1rem;
+                border: none;
+                width: 45%;
+            }
+            .show-substitution{
+                padding: 0.7rem;
+                margin-top: 2rem;
+                border-radius: 6px;
+                color: white;
+                width: 46%;
+                background: #ef7d00;
+
+            }
+            span{
+                font-weight: bold;
+                text-align: center;
+                margin-top: 1rem;
+                width: 46%;
+            }
         }
         
     }

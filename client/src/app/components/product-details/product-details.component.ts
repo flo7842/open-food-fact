@@ -14,7 +14,6 @@ export class ProductDetailsComponent implements OnInit {
   public openFoodProductDetails: any = []
   public substituteProduct: any = []
   substituteCat: Array<any> = [];
-  noteLabel: string = ''
   noteLabelEco: string = ''
   noteLabelNutri: string = ''
   urlParamsScoreEco: string = ''
@@ -37,16 +36,13 @@ export class ProductDetailsComponent implements OnInit {
     let result = subCat.trim().replace(/ /g, "-").toLowerCase()
     let urlParams = this.urlParamsScoreDefaut
     if(this.urlParamsScoreNutri !== '' && this.urlParamsScoreEco !== ''){
-      this.noteLabel = this.noteLabelNutri + this.noteLabelEco
       urlParams = this.urlParamsScoreNutri + this.urlParamsScoreEco
     } else if(this.urlParamsScoreNutri !== '' && this.urlParamsScoreEco == ''){
-      this.noteLabel = this.noteLabelNutri
       urlParams = this.urlParamsScoreNutri
     } else if(this.urlParamsScoreNutri == '' && this.urlParamsScoreEco !== ''){
-      this.noteLabel = this.noteLabelEco
       urlParams = this.urlParamsScoreEco
     } else {
-      urlParams = "Produit de substitution"
+      urlParams = ""
     }
     this.httpClient.get("https://fr.openfoodfacts.org/categorie/"+result+ urlParams + "&json=true").subscribe((data: any) => {
       this.substituteCat.push(new SubstitutProductComponent());
@@ -63,37 +59,25 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   selectChangeHandlerScoreEco(event: any) {
-    this.substituteProduct = []
-    
-    console.log(event.target.value);
-    
-    if(event.target.value == ""){
-      this.noteLabelEco = ""
-    } else {
-      this.noteLabelEco = '- Eco score ' + event.target.value.split('/').pop();
-    }
 
-    
-    this.noteLabel += this.noteLabelEco;
-    console.log(this.noteLabel, "notelabel1");
+    this.substituteProduct = []
+    this.noteLabelEco = "";
+    if(event.target.value == ""){
+      this.noteLabelEco = "";
+    } else {
+      this.noteLabelEco += `Eco score ${event.target.value.split('/').pop().toUpperCase()}`;
+    }
     this.urlParamsScoreEco = "/" + event.target.value;
   }
 
   selectChangeHandlerScoreNutri(event: any) {
-    this.noteLabel = "";
     this.substituteProduct = []
-    console.log(event.target.value);
+    this.noteLabelNutri = "";
     if(event.target.value == ""){
       this.noteLabelNutri = "";
     } else {
-
-      this.noteLabelNutri = '- Nutri score ' + event.target.value.split('/').pop();
+      this.noteLabelNutri += `Nutri score ${event.target.value.split('/').pop().toUpperCase()}`;
     }
-
-
-    this.noteLabel += this.noteLabelNutri;
-    console.log(this.noteLabel, "notelabel2");
-    
     this.urlParamsScoreNutri = "/" + event.target.value;
   }
 
