@@ -19,7 +19,6 @@ export class HomeComponent implements OnInit {
   searchLabel: string = "search";
   titlePageProduct: string = ''
   selected = 'option2';
-  selectedCat = 'option2';
 
   constructor(
     private httpClient: HttpClient,

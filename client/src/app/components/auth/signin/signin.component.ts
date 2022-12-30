@@ -1,5 +1,4 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { User } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -25,7 +24,6 @@ export class SigninComponent implements OnInit {
     public fb: FormBuilder, 
     private authService: AuthService,
     private storageService: StorageService, 
-    private router: Router, 
     private matDialog: MatDialog
   ) {
     this.form = this.fb.group({
@@ -45,8 +43,6 @@ export class SigninComponent implements OnInit {
 
     this.authService.signin(this.user.email, this.user.password).then(async(data: any) => {
       this.token = data.access
-      console.log(data, "Les data token");
-      console.log(this.token, "Les data token");
       this.storageService.setToken('user_token', this.token)
       this.matDialog.closeAll()
     }).catch(async(err) => {

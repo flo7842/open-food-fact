@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ProductDetailsComponent } from '../components/product-details/product-details.component';
-import { CallApiService } from '../services/callApi/call-api.service';
-import { ProductService } from '../services/product/product.service';
+import { ProductDetailsComponent } from '../product-details/product-details.component';
+import { CallApiService } from '../../services/callApi/call-api.service';
+import { ProductService } from '../../services/product/product.service';
 
 @Component({
   selector: 'app-favorit-product',
@@ -17,7 +17,6 @@ export class FavoritProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.productService.getFavoriteProducts().then((data:any) => {
-      
       for(let productCode of data){
         this.callApiService.getProductByBarCode(productCode).then((data:any) => {
           console.log(data, "product data");
@@ -38,19 +37,19 @@ export class FavoritProductComponent implements OnInit {
 
   removeFavoriteProduct(product:any){
     const objWithIdIndex = this.collectionFavoriteProducts.findIndex((obj:any) => obj._id === product._id);
-    console.log(objWithIdIndex, "indexxx");
     
+    this.collectionFavoriteProducts = []
     this.productService.deleteFavoriteProducts(product).then((data:any) => {
-      this.collectionFavoriteProducts.slice(objWithIdIndex, 1)
-      // this.productService.getFavoriteProducts().then((data:any) => {
       
-      //   for(let productCode of data){
-      //     this.callApiService.getProductByBarCode(productCode).then((data:any) => {
-      //       console.log(data, "product data");
-      //       this.collectionFavoriteProducts.push(data.product)
-      //     })
-      //   }
-      // })
+      this.collectionFavoriteProducts.slice(objWithIdIndex, 1)
+      this.productService.getFavoriteProducts().then((data:any) => {
+      
+        for(let productCode of data){
+          this.callApiService.getProductByBarCode(productCode).then((data:any) => {
+            this.collectionFavoriteProducts.push(data.product)
+          })
+        }
+      })
      
     })
   }

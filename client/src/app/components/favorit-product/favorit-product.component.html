@@ -1,8 +1,8 @@
 <app-header></app-header>
 <h1>Mes produits favoris</h1>
 <main>
-    <div class="container-card" *ngFor="let favoritProduct of collectionFavoriteProducts;" (click)="openProductHandler(favoritProduct)">
-        <div class="img-card">
+    <div class="container-card" *ngFor="let favoritProduct of collectionFavoriteProducts;">
+        <div class="img-card" (click)="openProductHandler(favoritProduct)">
             <img src="{{favoritProduct.image_front_url}}" alt="">
         </div>
         <div class="details">

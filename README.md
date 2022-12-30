@@ -1,2 +1,24 @@
-# open-food-fact
-A WebApp with Django which interacts with Open Food Facts to i retrieve food compare and offer a healthier substitute
+# Pur Beurre
+ A WebApp with Django which interacts with Open Food Facts to retrieve food, compare and offer a healthier substitute
+
+## Django
+
+### Accéder au dossier open_food_api avec la commande 
+`cd ./open_food_api`
+
+### Installer les dépendances avec 
+`pip install -r requirements.txt`
+
+### Lancer l'application avec
+`python manage.py runserver`
+
+
+## Angular
+### Pour installer les dépendances
+`npm install`
+
+### Pour lancer le server de développement
+`ng serve`
+
+### Pour générer le build de l'application
+`ng build`

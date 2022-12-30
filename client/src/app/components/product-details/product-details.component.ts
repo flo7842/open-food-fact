@@ -20,7 +20,12 @@ export class ProductDetailsComponent implements OnInit {
   urlParamsScoreNutri: string = ''
   urlParamsScoreDefaut: string = '?sort_by=nutriscore_score'
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private productService: ProductService, private httpClient: HttpClient, private matDialog: MatDialogRef<any>) { }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private data: any, 
+    private productService: ProductService, 
+    private httpClient: HttpClient, 
+    private matDialog: MatDialogRef<any>
+  ) { }
 
   ngOnInit(): void {
     this.openFoodProductDetails.push(this.data)
@@ -50,7 +55,6 @@ export class ProductDetailsComponent implements OnInit {
         this.substituteProduct.push(product)
       }
     })
-    
   }
 
   onProductSubstituteAdded(eventData: any) {
@@ -59,7 +63,6 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   selectChangeHandlerScoreEco(event: any) {
-
     this.substituteProduct = []
     this.noteLabelEco = "";
     if(event.target.value == ""){
@@ -80,5 +83,4 @@ export class ProductDetailsComponent implements OnInit {
     }
     this.urlParamsScoreNutri = "/" + event.target.value;
   }
-
 }
