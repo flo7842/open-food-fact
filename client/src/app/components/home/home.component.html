@@ -1,0 +1,32 @@
+<app-spinner></app-spinner>
+<app-header></app-header>
+<main>
+    <div class="container">
+        <div class="select-cat">
+            <select name="" id="cat" (change)="selectChangeCategories($event)">
+                <option *ngFor="let i of collectionCategories;" value="{{i.url}}">{{ i.name }}</option>
+            </select>
+            <mat-form-field appearance="fill">
+                <mat-label>Trier par Score</mat-label>
+                <mat-select (selectionChange)="selectChangeHandlerScore($event)" [(value)]="selected">
+                  <mat-option value="nutriscore">Notes nutritionnelles</mat-option>
+                  <mat-option value="ecoScore">Eco-Score</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="bar-codes">
+            <mat-form-field>
+                <input matInput placeholder="Recherche Code-barres" [(ngModel)]="searchText" (keydown)="keyDownFunction($event)">
+            <mat-icon matSuffix (click)="search($event)"></mat-icon>
+          </mat-form-field>
+        </div>
+    </div>
+    <section>
+        <h1>{{titlePageProduct}}</h1>
+        <app-card
+            [openFoodProduct]="openFoodProduct"
+        ></app-card>
+    </section>
+</main>
+
+<app-modal-signin></app-modal-signin>

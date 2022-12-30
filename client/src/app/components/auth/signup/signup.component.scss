@@ -1,0 +1,124 @@
+.container {
+    height: 100%;
+    display: flex;
+
+    .register-form {
+        position: relative;
+        width: 50%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        h1 {
+            font-size: 1.8rem;
+            color: #4b9934;
+        }
+
+        p {
+            color: #666161;
+        }
+
+        .form-control {
+            margin-top: 1.5rem;
+
+            input {
+                width: 100%;
+                padding: 12px;
+                border: none;
+                border-bottom: 1px solid #4b9934;
+                outline: none;
+            }
+
+            input[type="email"] {
+                margin-bottom: 1.5rem;
+            }
+
+            // input:not(:last-child) {
+            //     margin-bottom: 1.5rem;
+            // }
+
+            .password-tip {
+                max-width: 450px;
+                display: block;
+                font-size: .8rem;
+                text-align: justify;
+                margin-top: .25rem;
+                display: none;
+            }
+
+            input[type="password"]:focus ~ .password-tip {
+                display: block;
+            }
+        }
+
+        .errorMsg {
+            margin: 2rem auto 0 auto;
+            color: red;
+            text-align: justify;
+            font-size: 1rem;
+            max-width: 400px;
+        }
+
+        .btn-container {
+            margin-top: 3rem;
+
+            button {
+                width: 100%;
+                padding: 12px 0;
+                border: 1px solid #4b9934;
+                background-color: #4b9934;
+                color: #fff;
+                font-size: 1.2rem;
+                cursor: pointer;
+                transition: all ease-in .2s;
+            }
+
+            button:hover {
+                color: #4b9934;
+                background-color: #fff;
+            }
+        }
+
+        .nutri-score {
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            bottom: 50px;
+            left: 0;
+
+            img {
+                width: 100%;
+                max-width: 125px;
+            }
+        }
+    }
+
+    .img-signup {
+        width: 50%;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+@media screen and (max-width: 1223px) {
+    .container {
+        flex-direction: column-reverse;
+
+        .register-form {
+            width: 100%;
+            padding: 0 50px;
+            display: block;
+            margin-top: 3rem;
+        }
+
+        .img-signup {
+            width: 100%;
+            height: 25%;
+        }
+    }
+}

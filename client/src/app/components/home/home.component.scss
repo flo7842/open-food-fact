@@ -1,0 +1,53 @@
+main{
+    .container{
+        background: #ff9c22;
+        display: flex;
+        flex-wrap: nowrap;
+        align-content: center;
+        justify-content: space-between;
+        align-items: center;
+        .select-cat{
+            width: 70%;
+            margin-left: 6rem;
+        }
+        .bar-codes{
+            width: 30%;
+            margin-right: 3rem;
+        }
+    }
+    select{
+        width: 200px;
+    }
+    .mat-form-field{
+        margin-top: 1rem;
+        margin-left: 5rem;
+    }
+    #cat{
+        width: 100%;
+        min-width: 15ch;
+        color: #ffe4c9;
+        max-width: 37ch;
+        border: 1px solid var(--select-border);
+        border-radius: 0.25em;
+        padding: 0.8rem 0.5em;
+        font-size: 1rem;
+        cursor: pointer;
+        line-height: 1.1;
+        background-color: #ff9c36;
+    }
+    section{
+        width: 90%;
+        margin: auto;
+        margin-top: 4rem;
+        h1{
+            color: #f47d21;
+        }
+        app-card{
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-gap: 20px;
+            align-items: stretch;
+        }
+    }
+}

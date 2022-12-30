@@ -1,0 +1,31 @@
+<div class="container">
+    <form class="register-form" [formGroup]="form" (ngSubmit)="signup()">
+        <div>
+            <h1>Bienvenue sur le site officiel Pur Beurre</h1>
+
+            <p>Créez votre compte et commencez à faire votre choix !</p>
+
+            <div class="form-control">
+                <input type="email" id="email" formControlName="email" placeholder="Adresse mail">
+                <input type="password" id="password" formControlName="password" placeholder="Mot de passe">
+                <span class="password-tip">Le mot de passe doit contenir au moins : 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère spécial, 8 caractères</span>
+            </div>
+
+            <div class="errorMsg" *ngIf="errorMsg.length >=1 ? errorMsg : ''">
+                <span>{{errorMsg}}</span>
+            </div>
+
+            <div class="btn-container">
+                <button type="submit">S'inscrire</button>
+            </div>
+
+            <div class="nutri-score">
+                <img src="/assets/image/nutri-score.png" alt="Image nutri-score">
+            </div>
+        </div>
+    </form>
+
+    <div class="img-signup">
+        <img src="/assets/image/food_img.jpg" />
+    </div>
+</div>

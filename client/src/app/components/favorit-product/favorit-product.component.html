@@ -1,0 +1,18 @@
+<app-header></app-header>
+<h1>Mes produits favoris</h1>
+<main>
+    <div class="container-card" *ngFor="let favoritProduct of collectionFavoriteProducts;">
+        <div class="img-card" (click)="openProductHandler(favoritProduct)">
+            <img src="{{favoritProduct.image_front_url}}" alt="">
+        </div>
+        <div class="details">
+            <h2>{{favoritProduct.brands_imported ? favoritProduct.brands_imported : favoritProduct.brands}}</h2>
+            <p>{{favoritProduct.generic_name_fr}}</p>
+            <div class="score">
+                <img src="/assets/image/svg/nutriscore/nutriscore-{{favoritProduct.nutriscore_grade ? favoritProduct.nutriscore_grade : favoritProduct.nutrition_grades_tags}}.svg" alt="">
+                <img src="/assets/image/svg/ecoscore/ecoscore-{{favoritProduct.ecoscore_grade}}.svg" alt="">
+            </div>
+        </div>
+        <button (click)="removeFavoriteProduct(favoritProduct)">Supprimer des favoris</button>
+    </div>
+</main>

@@ -1,0 +1,13 @@
+<div class="grid">
+    <article *ngFor="let product of substituteProduct;">
+      <img src="{{product.image_front_thumb_url}}" alt="Sample photo">
+      <div class="text">
+        <h3>{{product.brands_imported ? product.brands_imported : product.brands}}</h3>
+        <button (click)="productDetailsHandler(product)">Plus de détails</button>
+      </div>
+      <div class="score">
+        <img src="/assets/image/svg/nutriscore/nutriscore-{{product.nutriscore_grade ? product.nutriscore_grade : product.nutrition_grades_tags}}.svg" alt="">
+        <img src="/assets/image/svg/ecoscore/ecoscore-{{product.ecoscore_grade}}.svg" alt="">
+    </div>
+    </article>
+</div>
