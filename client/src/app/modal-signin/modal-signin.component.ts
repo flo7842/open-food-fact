@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { SigninComponent } from '../auth/signin/signin.component';
+import { SigninComponent } from '../components/auth/signin/signin.component';
 
 @Component({
   selector: 'app-modal-signin',

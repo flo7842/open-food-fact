@@ -1,0 +1,50 @@
+<div *ngFor="let product of openFoodProductDetails;">
+    <div class="details-modal-title">
+        <div>
+            <img class="img-modal" src="{{product.image_front_url}}">
+        </div>
+        <div class="details-product">
+            <h1>{{product.brands_imported ? product.brands_imported : product.brands}}</h1>
+            <div>
+                <div class="details-labels">
+                    <span class="label">Code-barres:</span><p> {{product.code}}</p>
+                </div>
+                <div class="details-labels">
+                    <span class="label">Conditionnement :</span><p [innerHTML]="product.packaging | textTransform"> {{product.packaging}}</p>
+                </div>
+                <div class="details-labels">
+                    <span class="label">Marques :</span><p [innerHTML]="product.brands | textTransform"> {{product.brands}}</p>
+                </div>
+                <div class="details-labels">
+                    <span class="label">Catégories :</span><p [innerHTML]="product.categories | textTransform"> {{product.categories}}</p>
+                </div>
+                <div class="details-labels">
+                    <span class="label">Magasins :</span><p [innerHTML]="product.stores | textTransform"> {{product.stores}}</p>
+                </div>
+                <div class="details-labels">
+                    <span class="label">Pays de vente :</span><p [innerHTML]="product.countries | textTransform"> {{product.countries}}</p>
+                </div>
+                <p class="more-informations"><a href="{{product.url}}" target="_blank">Plus d'informations sur le produit</a></p>
+            </div>
+            <button (click)="addToFavorite(product)">Ajouter aux favoris</button>
+            <p class="show-substitution" (click)="getSubstituteProduct(product.categories)">Produit de substitution {{noteLabel}}</p>
+            <select (change)="selectChangeHandlerScoreNutri($event)" style="position:relative; left: 100px">
+                <option value="">Choisir un score nutritionnelle</option>
+                <option value="note-nutritionnelle/a">Note A</option>
+                <option value="note-nutritionnelle/b">Note B</option>
+                <option value="note-nutritionnelle/c">Note C</option>
+                <option value="note-nutritionnelle/d">Note D</option>
+                <option value="note-nutritionnelle/e">Note E</option>
+            </select>
+            <select (change)="selectChangeHandlerScoreEco($event)" style="position:relative; left: 100px">
+                <option value="">Choisir un score eco</option>
+                <option value="eco-score/a">Note A</option>
+                <option value="eco-score/b">Note B</option>
+                <option value="eco-score/c">Note C</option>
+                <option value="eco-score/d">Note D</option>
+                <option value="eco-score/e">Note E</option>
+            </select>
+        </div>
+    </div>
+    <div *ngIf="substituteProduct.length;"><app-substitut-product [substituteProduct]="substituteProduct" (substituteProductList)=onProductSubstituteAdded($event)></app-substitut-product></div>
+</div>

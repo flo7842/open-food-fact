@@ -1,0 +1,64 @@
+::ng-deep .modal-product-container {
+    overflow: scroll;
+    mat-dialog-container {
+        background-color: white;
+        padding: 0;
+    }
+  }
+
+.details-modal-title{
+    padding: 5rem;
+    display: flex;
+    color: black;
+    justify-content: space-around;
+    color: black;
+    div{
+        .img-modal {
+            width: 250px;
+        }
+    }
+    .details-product{
+        width: 60%;
+
+        .label{
+            font-weight: bold;
+        }
+
+        .details-labels{
+            display: flex;
+            flex-wrap: wrap;
+            span{
+                margin-right: 5px;
+            }
+        }
+        button {
+            background-color: #4b9934;
+            margin-top: 1rem;
+            padding: 10px 20px;
+            border: none;
+            color: white;
+            font-size: 0.875em;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4c993462;
+        }
+        .more-informations{
+            margin-top: 0.2rem;
+            a{
+                color: #ef7d00;
+                text-decoration: underline;
+            }
+        }
+        .show-substitution{
+            padding: 0.7rem;
+    margin-top: 2rem;
+    border-radius: 6px;
+    color: white;
+    width: 46%;
+    /* display: inline-block; */
+    background: #ef7d00;
+        }
+        
+    }
+}

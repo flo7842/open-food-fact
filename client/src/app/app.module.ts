@@ -5,21 +5,29 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SigninComponent } from './auth/signin/signin.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { AuthService } from './services/auth.service';
-import { HomeComponent } from './home/home.component';
+import { SigninComponent } from './components/auth/signin/signin.component';
+import { SignupComponent } from './components/auth/signup/signup.component';
+import { AuthService } from './services/auth/auth.service';
+import { HomeComponent } from './components/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatInputModule} from '@angular/material/input';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CardComponent } from './card/card.component';
+import { CardComponent } from './components/card/card.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { LoaderService } from './services/loader/loader.service';
 import { LoadingInterceptor } from './loadingInterceptor/loading.interceptor';
 import { ModalSignin } from './modal-signin/modal-signin.component';
-import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { TextTransformPipe } from './pipe/text-transform.pipe';
-import { SubstitutProductComponent } from './substitut-product/substitut-product.component';
+import { SubstitutProductComponent } from './components/substitut-product/substitut-product.component';
+import { CallApiService } from './services/callApi/call-api.service';
+import { StorageService } from './services/storage/storage.service';
+import { FavoritProductComponent } from './favorit-product/favorit-product.component';
+import { HeaderComponent } from './header/header.component';
+import { CommonModule } from '@angular/common';
+import {MatSelectModule} from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -32,9 +40,12 @@ import { SubstitutProductComponent } from './substitut-product/substitut-product
     SpinnerComponent,
     ProductDetailsComponent,
     TextTransformPipe,
-    SubstitutProductComponent
+    SubstitutProductComponent,
+    FavoritProductComponent,
+    HeaderComponent
   ],
   imports: [
+    CommonModule,
     MatProgressSpinnerModule,
     BrowserModule,
     AppRoutingModule,
@@ -43,8 +54,11 @@ import { SubstitutProductComponent } from './substitut-product/substitut-product
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatDialogModule,
+    MatInputModule,
+    MatSelectModule,
+    
   ],
-  providers: [AuthService, LoaderService,  {
+  providers: [AuthService, StorageService, CallApiService, LoaderService,  {
     provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
   },{provide: MAT_DIALOG_DATA, useValue: {}}, {
     provide: MatDialogRef,
